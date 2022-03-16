@@ -18,7 +18,6 @@ fn main() {
     config.include("open-vcdiff/src");
     config.include("src");
     config.include("src/zlib");
-    config.flag("-Wno-deprecated-declarations");
 
     if include_exists("ext/rope") {
         config.define("HAVE_EXT_ROPE", Some("1"));
