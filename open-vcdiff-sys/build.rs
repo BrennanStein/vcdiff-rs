@@ -1,21 +1,23 @@
-extern crate gcc;
-extern crate tempdir;
-
 use std::fs;
 use std::process;
 
 fn main() {
-    gcc::compile_library("libzlib-adler32.a", &["open-vcdiff/src/zlib/adler32.c"]);
+    cc::Build::new()
+        .include("open-vcdiff/src/zlib")
+        .file("open-vcdiff/src/zlib/adler32.c")
+        .compile("libzlib-adler32.a");
 
-    gcc::Config::new()
+    cc::Build::new()
         .include("open-vcdiff/src")
+        .include("open-vcdiff/src/zlib")
         .file("src/glue.cc")
         .compile("libopen-vcdiff-glue.a");
 
-    let mut config = gcc::Config::new();
-
+    let mut config = cc::Build::new();
     config.cpp(true);
     config.include("open-vcdiff/src");
+    config.include("open-vcdiff/src/zlib");
+
     config.include("src");
     config.include("src/zlib");
 
@@ -67,14 +69,13 @@ fn main() {
 fn include_exists(path: &str) -> bool {
     use std::io::Write;
 
-    let tool = gcc::Config::new().cpp(true).get_compiler();
+    let tool = cc::Build::new().cpp(true).get_compiler();
     let dir = tempdir::TempDir::new("open-vcdiff-sys").unwrap();
 
     let header_path = dir.path().join("test.h");
 
     {
         let mut header_file = fs::File::create(&header_path).unwrap();
-
         writeln!(header_file, "#include <{}>", path).unwrap();
     }
 
