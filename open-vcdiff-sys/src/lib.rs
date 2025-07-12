@@ -55,7 +55,7 @@ pub enum VCDiffFormatExtensionFlagValues {
     VCD_FORMAT_JSON = 4,
 }
 pub type VCDiffFormatExtensionFlags = ::std::os::raw::c_int;
-extern "C" {
+unsafe extern "C" {
     #[link_name = "vcdiff_encode"]
     pub fn encode(dictionary_data: *const uint8_t, dictionary_len: size_t,
                   target_data: *const uint8_t, target_len: size_t,

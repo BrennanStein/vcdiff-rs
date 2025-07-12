@@ -8,6 +8,8 @@ name = "open-vcdiff-sys"
 repository = "https://github.com/dflemstr/vcdiff-rs"
 version = "0.1.1"
 
+edition = "2024"
+
 [build-dependencies]
 cc = "1"
 tempdir = "0.3.7"
