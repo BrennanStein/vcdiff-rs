@@ -8,7 +8,7 @@ repository = "https://github.com/dflemstr/vcdiff-rs"
 version = "0.1.0"
 
 [dependencies]
-bitflags = "0.7.0"
+bitflags = "2"
 
 [dependencies.open-vcdiff-sys]
 path = "open-vcdiff-sys"
