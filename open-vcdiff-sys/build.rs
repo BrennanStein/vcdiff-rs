@@ -73,7 +73,7 @@ fn include_exists(path: &str) -> bool {
     let tool = cc::Build::new().cpp(true).get_compiler();
     let dir = tempfile::tempdir().unwrap();
 
-    let header_path = dir.keep().join("test.h");
+    let header_path = dir.path().join("test.h");
 
     {
         let mut header_file = fs::File::create(&header_path).unwrap();
