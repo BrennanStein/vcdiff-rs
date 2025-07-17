@@ -10,6 +10,7 @@ fn main() {
     cc::Build::new()
         .include("open-vcdiff/src")
         .include("open-vcdiff/src/zlib")
+        .include("open-vcdiff/src/google")
         .file("src/glue.cc")
         .compile("libopen-vcdiff-glue.a");
 
@@ -70,9 +71,9 @@ fn include_exists(path: &str) -> bool {
     use std::io::Write;
 
     let tool = cc::Build::new().cpp(true).get_compiler();
-    let dir = tempdir::TempDir::new("open-vcdiff-sys").unwrap();
+    let dir = tempfile::tempdir().unwrap();
 
-    let header_path = dir.path().join("test.h");
+    let header_path = dir.keep().join("test.h");
 
     {
         let mut header_file = fs::File::create(&header_path).unwrap();
